@@ -30,6 +30,9 @@ genrule(
         ":namespace-sandbox",
         "client_info",
         "//src/main/tools:build_interface_so",
+        "//src/java_tools/buildjar:JavaBuilder_deploy.jar",
+        "//src/java_tools/singlejar:SingleJar_deploy.jar",
+        "//third_party/ijar",
     ],
     outs = ["install_base_key"],
     cmd = select({
@@ -60,13 +63,18 @@ genrule(
         "//src/main/tools:build_interface_so",
         "install_base_key",
         ":java-version",
+        "//src/java_tools/buildjar:JavaBuilder_deploy.jar",
+        "//src/java_tools/singlejar:SingleJar_deploy.jar",
+        "//third_party/ijar",
     ],
     outs = ["package.zip"],
     # Terrible hack to remove timestamps in the zip file
     cmd = "mkdir $(@D)/package-zip && " +
           "cp $(SRCS) $(@D)/package-zip && " +
           "touch -t 198001010000.00 $(@D)/package-zip/* && " +
-          "zip -qj $@ $(@D)/package-zip/* && " +
+          "zip -qj $@ $$(for i in $(SRCS); do " +
+          "echo $(@D)/package-zip/$$(basename $$i); " +
+          "done) && " +
           "rm -fr $(@D)/package-zip",
 )
 

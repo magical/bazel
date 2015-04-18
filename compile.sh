@@ -443,7 +443,7 @@ touch output/client_info
 chmod 755 output/client_info
 
 log "Creating Bazel self-extracting archive..."
-TO_ZIP="libblaze.jar ${JNILIB} build-runfiles${EXE_EXT} process-wrapper${EXE_EXT} client_info build_interface_so ${MSYS_DLLS} jdk.WORKSPACE jdk.BUILD"
+TO_ZIP="libblaze.jar ${JNILIB} build-runfiles${EXE_EXT} process-wrapper${EXE_EXT} client_info build_interface_so ${MSYS_DLLS} jdk.WORKSPACE jdk.BUILD ../tools/jdk/ijar singlejar/SingleJar_deploy.jar buildjar/JavaBuilder_deploy.jar"
 if [[ $PLATFORM == "linux" ]]; then
     TO_ZIP="$TO_ZIP namespace-sandbox${EXE_EXT}"
 fi
@@ -451,7 +451,7 @@ fi
 (cd output/ ; cat client ${TO_ZIP} | ${MD5SUM} | awk '{ print $1; }' > install_base_key)
 (cd output/ ; echo "${JAVA_VERSION}" > java.version)
 (cd output/ ; find . -type f | xargs -P 10 touch -t 198001010000)
-(cd output/ ; zip $ZIPOPTS -q package.zip ${TO_ZIP} install_base_key java.version)
+(cd output/ ; zip $ZIPOPTS -jq package.zip ${TO_ZIP} install_base_key java.version)
 cat output/client output/package.zip > output/bazel
 zip -qA output/bazel \
   || echo "(Non-critical error, ignore.)"
