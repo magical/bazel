@@ -6,6 +6,13 @@ This is a prototype. It lacks proper tests and complete documentation.
 
 # Usage
 
+Simply run `./bazel-configure.sh` to run the standalone version on
+the examples and `bazel build //experimental/examples:config` to run
+the Bazel version (note that this will not work under Linux where
+the default JDK is not a JDK 8 because Bazel does not provide
+environment variables to genrule so the `JAVA_HOME` environment
+variable will be null).
+
 `//experimental/init` contains the basic scripts. `bazel-init.py` and
 `bazel-init.bzl` are examples on how it would be decomposed if
 integrated into a propre build / skyframe rotation: a detection phase
