@@ -1,5 +1,5 @@
 ---
-title: Bazel: Correct, reproducible, fast builds for everyone
+title: "Bazel: Correct, reproducible, fast builds for everyone"
 layout: default
 ---
 
