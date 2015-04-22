@@ -1,4 +1,5 @@
 ---
+title: Contributing to Bazel
 layout: default
 ---
 

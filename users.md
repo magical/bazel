@@ -1,4 +1,5 @@
 ---
+title: Projects Using Bazel
 layout: default
 ---
 

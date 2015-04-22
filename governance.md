@@ -1,4 +1,5 @@
 ---
+title: Governance - Bazel
 layout: default
 ---
 
